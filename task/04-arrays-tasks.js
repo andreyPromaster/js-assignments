@@ -660,16 +660,11 @@ function getElementByIndexes(arr, indexes) {
  * 
  */
 function swapHeadAndTail(arr) {
-   let array =[]
-   let lenght = arr.length;
-   let tail = arr.slice(-(lenght / 2));
-   let head = arr.slice(0, (lenght / 2));
-   if (lenght % 2 != 0 && lenght > 1) {
-       array = [...tail, arr[Math.floor(lenght / 2)], ...head];
-       return array;
-   }
-   array = [...tail, ...head];
-   return array;
+   let copy_arr = arr.slice();
+   let middle = Math.floor(copy_arr.length/2);
+   let head = copy_arr.splice(0,middle);
+   let tail = copy_arr.splice(arr.length - middle);
+   return [...tail, ...copy_arr, ...head];
 }
 
 

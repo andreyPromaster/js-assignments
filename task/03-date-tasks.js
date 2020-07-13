@@ -110,11 +110,12 @@ function timeSpanToString(startDate, endDate) {
  */
 function angleBetweenClockHands(date) {
    let hours = date.getUTCHours(); 
-   if (hours >= 12)
+   let midday = 12, corner_hour = 60, corner_min = 11;
+   if (hours >= midday)
    {
-      hours -=12; 
+      hours -= midday; 
    }
-   let difference = Math.abs(Math.PI/360*(60*hours - 11 * date.getUTCMinutes()));
+   let difference = Math.abs(Math.PI/360*(corner_hour*hours - corner_min * date.getUTCMinutes()));
    if (difference>Math.PI)
    { 
       difference = 2 * Math.PI - difference;
