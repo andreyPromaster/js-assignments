@@ -30,7 +30,15 @@
  *
  */
 function getFizzBuzz(num) {
-    throw new Error('Not implemented');
+    if(num % 15 == 0)
+    {
+        return 'FizzBuzz';
+    } else if (num % 3 == 0)
+    {
+        return 'Fizz';
+    } else if(num % 5 == 0) {
+        return 'Buzz';
+    } else return num;
 }
 
 
@@ -46,7 +54,16 @@ function getFizzBuzz(num) {
  *   10 => 3628800
  */
 function getFactorial(n) {
-    throw new Error('Not implemented');
+    let result = 1;
+    for(let i=1; i<=n; i++)
+    {
+        if(n<=0)
+        {
+            return 1;
+        }
+        result *= i;
+    }
+    return result;
 }
 
 
@@ -63,7 +80,12 @@ function getFactorial(n) {
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
 function getSumBetweenNumbers(n1, n2) {
-    throw new Error('Not implemented');
+    let result = 0;
+    for(let i = n1; i<=n2; i++)
+    {
+        result += i;
+    }
+    return result;
 }
 
 
@@ -82,7 +104,7 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,10,10 =>  true
  */
 function isTriangle(a,b,c) {
-    throw new Error('Not implemented');
+   return a + b > c && a + c > b && b + c > a;
 }
 
 
@@ -119,7 +141,17 @@ function isTriangle(a,b,c) {
  *  
  */
 function doRectanglesOverlap(rect1, rect2) {
-    throw new Error('Not implemented');
+    let x11 = rect1.top;
+    let y11 = rect1.left;
+    let x12 = x11 + rect1.height;
+    let y12 = y11 + rect1.width;
+
+    let x21 = rect2.top;
+    let y21 = rect2.left;
+    let x22 = x21 + rect2.height;
+    let y22 = y21 + rect2.width;
+
+    return !(x11 > x22 || y11 > y22 || x12 < x21 || y12 < y21)
 }
 
 
@@ -150,7 +182,7 @@ function doRectanglesOverlap(rect1, rect2) {
  *   
  */
 function isInsideCircle(circle, point) {
-    throw new Error('Not implemented');
+    return (circle.radius**2 > (circle.center.x - point.x)**2 + (circle.center.y - point.y)**2);
 }
 
 
@@ -166,7 +198,18 @@ function isInsideCircle(circle, point) {
  *   'entente' => null
  */
 function findFirstSingleChar(str) {
-    throw new Error('Not implemented');
+    for(let i=0; i<str.length; i++){
+        let coincidence = 0;
+        for(let j=0; j<str.length; j++){
+            if(str[i]==str[j]){
+                coincidence++;
+            }
+        }
+        if(coincidence == 1){
+            return str[i];
+        }
+    }
+    return null;
 }
 
 
@@ -192,7 +235,24 @@ function findFirstSingleChar(str) {
  *
  */
 function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
-    throw new Error('Not implemented');
+    let str = '';
+    if(isStartIncluded){
+        str +='[';
+    } else {
+        str +='(';
+    }
+    if(a > b){
+        str += `${b}, ${a}`;
+    }
+    else{
+        str += `${a}, ${b}`;
+    }
+    if(isEndIncluded){
+        str +=']';
+    } else {
+        str +=')';
+    }
+    return str;
 }
 
 
@@ -209,7 +269,7 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
  * 'noon' => 'noon'
  */
 function reverseString(str) {
-    throw new Error('Not implemented');
+    return str.split('').reverse().join('');
 }
 
 
@@ -226,7 +286,8 @@ function reverseString(str) {
  *   34143 => 34143
  */
 function reverseInteger(num) {
-    throw new Error('Not implemented');
+    let str = num.toString();
+    return Number(str.split('').reverse().join(''));
 }
 
 
@@ -251,8 +312,25 @@ function reverseInteger(num) {
  *   4916123456789012 => false
  */
 function isCreditCardNumber(ccn) {
-    throw new Error('Not implemented');
+  let sum = 0;
+  let digits = String(ccn);
+  for (let i = 0; i < digits.length; i++) {
+    let cardNum = parseInt(digits[i]);
+
+    if ((digits.length - i) % 2 == 0) {
+      cardNum = cardNum * 2;
+
+      if (cardNum > 9) {
+        cardNum = cardNum - 9;
+      }
+    }
+
+    sum += cardNum;
+  }
+
+  return sum % 10 == 0;
 }
+
 
 
 /**
@@ -270,7 +348,18 @@ function isCreditCardNumber(ccn) {
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
 function getDigitalRoot(num) {
-    throw new Error('Not implemented');
+
+    let digits = String(num);
+    let sum = 0;
+    for (let i = 0; i < digits.length; i++) {
+      let digit = parseInt(digits[i]);
+      sum += digit;
+    }
+    if(num <= 9){
+        return num;
+    } else {
+        return getDigitalRoot(sum);
+    }
 }
 
 
@@ -296,7 +385,20 @@ function getDigitalRoot(num) {
  *   '{[(<{[]}>)]}' = true 
  */
 function isBracketsBalanced(str) {
-    throw new Error('Not implemented');
+    let stack = [];
+    let opening_brackets = ['[','{','(','<'];
+    let closing_brackets = [']','}',')','>'];
+    for(let i = 0; i < str.length; i++){
+        if(opening_brackets.indexOf(str[i])>=0){
+            stack.push(opening_brackets.indexOf(str[i]));
+        }
+        else{   
+            if(closing_brackets[stack.pop()] != str[i]){
+                return false;
+            }
+        }
+    }
+    return stack.length == 0;
 }
 
 
@@ -332,7 +434,38 @@ function isBracketsBalanced(str) {
  *
  */
 function timespanToHumanString(startDate, endDate) {
-    throw new Error('Not implemented');
+    let sec = 1000;
+    let min = 60 * sec;
+    let hour = 60 * min;
+    let day = 24 * hour;
+    let month = 30 * day;
+    let year = 12 * month;
+
+    let date = endDate.getTime() - startDate.getTime() - 1;
+
+    if(date < 45*sec)
+        return 'a few seconds ago';
+    else if(45*sec <= date && date < 90*sec)
+        return 'a minute ago';
+    else if(90*sec <= date && date < 45*min)
+        return `${Math.round(date/min)} minutes ago`;
+    else if(45*min <= date && date < 90*min)
+        return 'an hour ago';
+    else if(90*min <= date && date < 22*hour)
+        return `${Math.round(date/hour)} hours ago`;
+    else if(22*hour <= date && date < 36*hour)
+        return 'a day ago';
+    else if( 26*hour <= date && date < 25*day)
+        return `${Math.round(date/day)} days ago`;
+    else if(25*day <= date && date < 45*day)
+        return 'a month ago';
+    else if(45*day <= date && date < 345*day)
+        return `${Math.round(date/month)} months ago`;
+    else if(345*day <= date && date < 545*day)
+        return 'a year ago';
+    else if(546*day<=date)
+        return `${Math.round(date/year)} years ago`;
+
 }
 
 
@@ -356,7 +489,13 @@ function timespanToHumanString(startDate, endDate) {
  *    365, 10 => '365'
  */
 function toNaryString(num, n) {
-    throw new Error('Not implemented');
+    let number = '';
+    while(num >= n){
+        number += (num % n).toString();
+        num = Math.floor(num / n);
+    }
+    number += num;
+    return number.split('').reverse().join('');
 }
 
 
@@ -373,7 +512,18 @@ function toNaryString(num, n) {
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
 function getCommonDirectoryPath(pathes) {
-    throw new Error('Not implemented');
+    let splited = pathes.map(el => el.split('/'));
+    let result = '';
+
+    for (let i = 0; i < splited[0].length; i++) {
+        if (splited.every(el => el[i] === splited[0][i])) {
+            result += splited[0][i].concat('/');
+        } else {
+            break;
+        }
+    }
+
+    return result;
 }
 
 
@@ -396,7 +546,20 @@ function getCommonDirectoryPath(pathes) {
  *
  */
 function getMatrixProduct(m1, m2) {
-    throw new Error('Not implemented');
+    let result_matrix = [];
+    for(let i=0;i<m1.length; i++){
+        result_matrix[i] = [];
+    }
+    for(let n = 0; n < m1.length; n++){ //rows matrix1
+        for(let i = 0; i < m2[0].length; i++){ //cols matrix2
+            let scalar = 0;
+            for(let j = 0; j < m1[0].length; j++){ //cols matrix1
+                scalar +=  m1[n][j]*m2[j][i];
+                result_matrix[n][i] = scalar;
+            }
+        }
+    }
+    return result_matrix;
 }
 
 
@@ -431,7 +594,16 @@ function getMatrixProduct(m1, m2) {
  *
  */
 function evaluateTicTacToePosition(position) {
-    throw new Error('Not implemented');
+    let p = position;
+
+    if (p[0][0] && p[0][0] === p[0][1] && p[0][0] === p[0][2]) return p[0][0];
+    else if (p[1][0] && p[1][0] === p[1][1] && p[1][0] === p[1][2]) return p[1][0];
+    else if (p[2][0] && p[2][0] === p[2][1] && p[2][0] === p[2][2]) return p[2][0];
+    else if (p[0][0] && p[0][0] === p[1][0] && p[0][0] === p[2][0]) return p[0][0];
+    else if (p[0][1] && p[0][1] === p[1][1] && p[0][1] === p[2][1]) return p[0][1];
+    else if (p[0][2] && p[0][2] === p[1][2] && p[0][2] === p[2][2]) return p[0][2];
+    else if (p[0][0] && p[0][0] === p[1][1] && p[0][0] === p[2][2]) return p[0][0];
+    else if (p[0][2] && p[0][2] === p[1][1] && p[0][2] === p[2][0]) return p[0][2];
 }
 
 
