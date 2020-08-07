@@ -37,7 +37,7 @@ function* get99BottlesOfBeer() {
     while(counter >= 2){
         yield `${counter} bottles of beer on the wall, ${counter} bottles of beer.`;
         counter--;
-        if(counter == 1){
+        if(counter === 1){
             continue;
         }
         yield `Take one down and pass it around, ${counter} bottles of beer on the wall.`;
