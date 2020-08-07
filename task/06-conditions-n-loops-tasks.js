@@ -201,11 +201,11 @@ function findFirstSingleChar(str) {
     for(let i=0; i<str.length; i++){
         let coincidence = 0;
         for(let j=0; j<str.length; j++){
-            if(str[i]==str[j]){
+            if(str[i]===str[j]){
                 coincidence++;
             }
         }
-        if(coincidence == 1){
+        if(coincidence === 1){
             return str[i];
         }
     }
@@ -317,7 +317,7 @@ function isCreditCardNumber(ccn) {
   for (let i = 0; i < digits.length; i++) {
     let cardNum = parseInt(digits[i]);
 
-    if ((digits.length - i) % 2 == 0) {
+    if ((digits.length - i) % 2 === 0) {
       cardNum = cardNum * 2;
 
       if (cardNum > 9) {
@@ -328,7 +328,7 @@ function isCreditCardNumber(ccn) {
     sum += cardNum;
   }
 
-  return sum % 10 == 0;
+  return sum % 10 === 0;
 }
 
 
@@ -393,12 +393,12 @@ function isBracketsBalanced(str) {
             stack.push(opening_brackets.indexOf(str[i]));
         }
         else{   
-            if(closing_brackets[stack.pop()] != str[i]){
+            if(closing_brackets[stack.pop()] !== str[i]){
                 return false;
             }
         }
     }
-    return stack.length == 0;
+    return stack.length === 0;
 }
 
 
@@ -445,25 +445,25 @@ function timespanToHumanString(startDate, endDate) {
 
     if(date < 45*sec)
         return 'a few seconds ago';
-    else if(45*sec <= date && date < 90*sec)
+    if(45*sec <= date && date < 90*sec)
         return 'a minute ago';
-    else if(90*sec <= date && date < 45*min)
+    if(90*sec <= date && date < 45*min)
         return `${Math.round(date/min)} minutes ago`;
-    else if(45*min <= date && date < 90*min)
+    if(45*min <= date && date < 90*min)
         return 'an hour ago';
-    else if(90*min <= date && date < 22*hour)
+    if(90*min <= date && date < 22*hour)
         return `${Math.round(date/hour)} hours ago`;
-    else if(22*hour <= date && date < 36*hour)
+    if(22*hour <= date && date < 36*hour)
         return 'a day ago';
-    else if( 26*hour <= date && date < 25*day)
+    if( 26*hour <= date && date < 25*day)
         return `${Math.round(date/day)} days ago`;
-    else if(25*day <= date && date < 45*day)
+    if(25*day <= date && date < 45*day)
         return 'a month ago';
-    else if(45*day <= date && date < 345*day)
+    if(45*day <= date && date < 345*day)
         return `${Math.round(date/month)} months ago`;
-    else if(345*day <= date && date < 545*day)
+    if(345*day <= date && date < 545*day)
         return 'a year ago';
-    else if(546*day<=date)
+    if(546*day<=date)
         return `${Math.round(date/year)} years ago`;
 
 }
